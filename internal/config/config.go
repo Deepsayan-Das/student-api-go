@@ -9,19 +9,15 @@ import (
 )
 
 type HTTPServer struct {
-	Addr string
+	Addr string `yaml:"address" env-required:"true"`
 }
 
 //env-default:"production"
 
 type Config struct {
-	Env         string `yaml :"env" env:"ENV env-required:"true" `
-	storagePath string `yaml : "storage_path" env-required: "true"`
-	HTTPServer  `yaml: "http_server"`
-}
-
-func handleError(err error) {
-
+	Env         string     `yaml:"env" env:"ENV" env-required:"true"`
+	StoragePath string     `yaml:"storage_path" env-required:"true"`
+	HTTPServer  HTTPServer `yaml:"http_server"`
 }
 
 func MustLoad() *Config { //CONVENTION:starts with must means this program should run properly inorder to start the application properly if this throws and error DONOT start the application
